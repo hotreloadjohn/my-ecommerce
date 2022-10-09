@@ -22,7 +22,7 @@ export default function Home({ products }) {
         className="bg-gray-100 w-full py-2 px-4 rounded-xl outline-none"
         type="text"
         value={searchTerm}
-        placeholder="Search products..."
+        placeholder="Search john products..."
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div>
