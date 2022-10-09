@@ -1,5 +1,3 @@
-// https://youtu.be/hlh1zR2Wjvs?list=TLGG2uYuYN_CqREwMjEwMjAyMg
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
