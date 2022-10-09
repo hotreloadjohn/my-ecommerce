@@ -1,30 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
+import { initMongoose } from "../config/database";
+import { findAllProducts } from "./api/products";
 
-export default function Home() {
-  const [productInfo, setProductInfo] = useState(null);
+export default function Home({ products }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const getProductInfo = async () => {
-      const { data } = await axios.get("/api/products");
-      setProductInfo(data);
-    };
-
-    getProductInfo();
-  }, []);
-
-  const categoriesNames = [...new Set(productInfo?.map((p) => p.category))];
+  const categoriesNames = [...new Set(products?.map((p) => p.category))];
   // console.log(categoriesNames);
 
-  let products;
   if (searchTerm) {
-    products = productInfo.filter((p) =>
+    products = products.filter((p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  } else {
-    products = productInfo;
   }
 
   return (
@@ -59,3 +48,14 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  await initMongoose();
+  const products = await findAllProducts();
+
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    },
+  };
+};
