@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Layout from "../components/Layout";
 import Product from "../components/Product";
 import { initMongoose } from "../config/database";
 import { findAllProducts } from "./api/products";
@@ -17,12 +18,12 @@ export default function Home({ products }) {
   }
 
   return (
-    <div className="p-5">
+    <Layout>
       <input
         className="bg-gray-100 w-full py-2 px-4 rounded-xl outline-none"
         type="text"
         value={searchTerm}
-        placeholder="Search john products..."
+        placeholder="Search products..."
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div>
@@ -45,7 +46,8 @@ export default function Home({ products }) {
           </div>
         ))}
       </div>
-    </div>
+
+    </Layout>
   );
 }
 
